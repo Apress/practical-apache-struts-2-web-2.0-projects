@@ -1,0 +1,1 @@
+@java -cp "%~dp0;%~dp0/../java;%~dp0\bin;C:/devapps/gwt-windows-1.4.10/gwt-user.jar;C:/devapps/gwt-windows-1.4.10/gwt-dev-windows.jar" com.google.gwt.dev.GWTCompiler -out "%~dp0\..\webapp" %* com.fdar.apress.s2.GWTClient

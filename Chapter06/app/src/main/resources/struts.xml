@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!-- Individual action, zero configuration -->
+    <constant name="struts.codebehind.defaultPackage" value="base-package" />
+    <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/jsp/"/>
+
+    <package name="home-package" extends="struts-default" namespace="/">
+        <action name="index" class="com.fdar.apress.s2.actions.BaseAction" >
+            <result name="success">/WEB-INF/jsp/index.jsp</result>
+        </action>
+    </package>
+
+    <package name="base-package" extends="home-package" >
+
+        <default-interceptor-ref name="paramsPrepareParamsStack" />
+
+        <!--<global-results>-->
+            <!--<result name="unknownError">/WEB-INF/jsp/error.jsp</result>-->
+        <!--</global-results>-->
+        <!--<global-exception-mappings>-->
+            <!--<exception-mapping exception="org.hibernate.exception.ConstraintViolationException" result="dupPK" />-->
+            <!--<exception-mapping exception="java.lang.Exception" result="unknownError" />-->
+        <!--</global-exception-mappings>-->
+
+    </package>
+
+    <package name="enterEvent" namespace="/event" extends="base-package">
+
+        <interceptors>
+            <interceptor name="flash" class="com.opensymphony.webwork.interceptor.FlashInterceptor" />
+            <interceptor-stack name="eventStack">
+                <interceptor-ref name="scope">
+                    <param name="session">model</param>
+                    <param name="key">partialEvent</param>
+                </interceptor-ref>
+                <interceptor-ref name="paramsPrepareParamsStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="eventStack" />
+
+        <action name="addEventFlow" class="com.fdar.apress.s2.actions.event.BaseEventAction">
+            <interceptor-ref name="eventStack">
+                <param name="scope.type">start</param>
+            </interceptor-ref>
+            <result>/WEB-INF/jsp/event/enterEventDetails-input.jsp</result>
+        </action>
+
+        <action name="completeEvent" class="com.fdar.apress.s2.actions.event.BaseEventAction">
+            <interceptor-ref name="eventStack">
+                <param name="scope.type">end</param>
+            </interceptor-ref>
+            <result>/WEB-INF/jsp/event/eventReview.jsp</result>
+        </action>
+
+         <action name="flashedSelectEventType" class="com.fdar.apress.s2.actions.event.SelectLocationTypeAction">
+             <interceptor-ref name="flash">
+                 <param name="operation">Retrieve</param>
+             </interceptor-ref>
+             <interceptor-ref name="eventStack" />
+            <result>/WEB-INF/jsp/event/selectLocationType-input.jsp</result>
+        </action>
+
+    </package>
+
+    <include file="config-browser.xml"/>
+
+</struts>

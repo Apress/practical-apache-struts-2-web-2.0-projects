@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache-entry>
+	<generated-type-hash class="com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException_FieldSerializer" hash="FF198044879E67E1ACF2E0C29CC58CB5"/>
+	<generated-type-hash class="com.fdar.apress.s2.client.GWTLocationDTO_FieldSerializer" hash="F1A629B929E20EF45660A8A01F7BB1BD"/>
+	<generated-type-hash class="com.fdar.apress.s2.client.service.GWTService_TypeSerializer" hash="5892EE8AFBC6ED31B6A1B66AC31FC3ED"/>
+	<generated-type-hash class="com.fdar.apress.s2.client.service.GWTService_Proxy" hash="DEB9B410700EC6E7EFEB018C3D339B7D"/>
+	<generated-type-hash class="com.fdar.apress.s2.client.GWTEventDTO_FieldSerializer" hash="71736338EEEC320A8B0D327F40A376E5"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.TextBoxImpl" out="com.google.gwt.user.client.ui.impl.TextBoxImpl"/>
+	<rebind-decision in="com.fdar.apress.s2.client.GWTClient" out="com.fdar.apress.s2.client.GWTClient"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.FocusImpl" out="com.google.gwt.user.client.ui.impl.FocusImplOld"/>
+	<rebind-decision in="com.fdar.apress.s2.client.service.GWTService" out="com.fdar.apress.s2.client.service.GWTService_Proxy"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.FormPanelImpl" out="com.google.gwt.user.client.ui.impl.FormPanelImpl"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.HistoryImpl" out="com.google.gwt.user.client.impl.HistoryImplStandard"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.HTTPRequestImpl" out="com.google.gwt.user.client.impl.HTTPRequestImpl"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.DOMImpl" out="com.google.gwt.user.client.impl.DOMImplOpera"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.PopupImpl" out="com.google.gwt.user.client.ui.impl.PopupImpl"/>
+</cache-entry>

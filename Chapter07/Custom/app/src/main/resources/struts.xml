@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!-- Individual action, zero configuration -->
+    <constant name="struts.codebehind.defaultPackage" value="base-package" />
+    <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/jsp/"/>
+
+    <package name="home-package" extends="struts-default" namespace="/">
+
+        <interceptors>
+            <interceptor name="security" class="com.fdar.apress.s2.util.SecurityInterceptor" >
+                <param name="requiresAuthentication">
+                    /event,
+                    /admin
+                </param>
+            </interceptor>
+            <interceptor-stack name="securedBasicStack">
+                <interceptor-ref name="security" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="securedBasicStack" />
+        
+        <global-results>
+           <result name="authenticate">/WEB-INF/jsp/logon.jsp</result>
+        </global-results>
+
+        <action name="index" class="com.fdar.apress.s2.actions.BaseAction" >
+            <result name="success">/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+        <action name="logon" class="com.fdar.apress.s2.actions.LogonAction" >
+            <result name="success" type="redirectAction">index</result>
+            <result name="failed" >/WEB-INF/jsp/logon.jsp</result>
+        </action>
+
+        <action name="logoff" class="com.fdar.apress.s2.actions.LogoffAction" >
+            <result name="success" type="redirectAction">index</result>
+        </action>
+
+    </package>
+
+    <package name="base-package" extends="home-package" >
+
+        <interceptors>
+            <interceptor-stack name="securedStack">
+                <interceptor-ref name="security" />
+                <interceptor-ref name="paramsPrepareParamsStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="securedStack" />
+
+        <!--<global-results>-->
+             <!--<result name="unknownError">/WEB-INF/jsp/error.jsp</result>-->
+         <!--</global-results>-->
+         <!--<global-exception-mappings>-->
+             <!--<exception-mapping exception="org.hibernate.exception.ConstraintViolationException" result="dupPK" />-->
+             <!--<exception-mapping exception="java.lang.Exception" result="unknownError" />-->
+         <!--</global-exception-mappings>-->
+
+     </package>
+
+    <package name="enterEvent" namespace="/event" extends="base-package">
+
+        <interceptors>
+            <interceptor name="flash" class="com.opensymphony.webwork.interceptor.FlashInterceptor" />
+            <interceptor-stack name="eventStack">
+                <interceptor-ref name="security" />
+                <interceptor-ref name="scope">
+                    <param name="session">model</param>
+                    <param name="key">partialEvent</param>
+                </interceptor-ref>
+                <interceptor-ref name="paramsPrepareParamsStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="eventStack" />
+
+        <action name="addEventFlow" class="com.fdar.apress.s2.actions.event.BaseEventAction">
+            <interceptor-ref name="eventStack">
+                <param name="scope.type">start</param>
+            </interceptor-ref>
+            <result>/WEB-INF/jsp/event/enterEventDetails-input.jsp</result>
+        </action>
+
+        <action name="completeEvent" class="com.fdar.apress.s2.actions.event.BaseEventAction">
+            <interceptor-ref name="eventStack">
+                <param name="scope.type">end</param>
+            </interceptor-ref>
+            <result>/WEB-INF/jsp/event/eventReview.jsp</result>
+        </action>
+
+         <action name="flashedSelectEventType" class="com.fdar.apress.s2.actions.event.SelectLocationTypeAction">
+             <interceptor-ref name="flash">
+                 <param name="operation">Retrieve</param>
+             </interceptor-ref>
+             <interceptor-ref name="eventStack" />
+            <result>/WEB-INF/jsp/event/selectLocationType-input.jsp</result>
+        </action>
+
+    </package>
+
+    <include file="config-browser.xml"/>
+
+</struts>

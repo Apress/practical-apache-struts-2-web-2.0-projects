@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!-- Individual action, zero configuration -->
+    <constant name="struts.codebehind.defaultPackage" value="base-package" />
+    <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/jsp/"/>
+
+    <package name="base-package" extends="struts-default" >
+
+        <default-interceptor-ref name="paramsPrepareParamsStack" />
+        <global-results>
+            <result name="unknownError">/WEB-INF/jsp/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="org.hibernate.exception.ConstraintViolationException" result="dupPK" />
+            <exception-mapping exception="java.lang.Exception" result="unknownError" />
+        </global-exception-mappings>
+
+        <action name="index" class="com.fdar.apress.s2.actions.BaseAction" >
+            <result name="success">/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+    </package>
+
+
+    <!-- Single action, expanded configuration -->
+    <!--<package name="user" extends="struts-default" namespace="/user" >-->
+
+        <!--<default-interceptor-ref name="paramsPrepareParamsStack" />-->
+            <!--<param name="validation.validateAnnotatedMethodOnly">true</param>-->
+        <!--</default-interceptor-ref>-->
+
+        <!--<action name="index" class="com.fdar.apress.s2.actions.BaseAction" >-->
+            <!--<result name="success">/WEB-INF/jsp/index.jsp</result>-->
+        <!--</action>-->
+
+        <!--<action name="findUser" method="find"-->
+                <!--class="com.fdar.apress.s2.actions.user.UserAction" >-->
+            <!--<result name="input">/WEB-INF/jsp/user/findUser-success.jsp</result>-->
+            <!--<interceptor-ref name="paramsPrepareParamsStack">-->
+                <!--<param name="validation.validateAnnotatedMethodOnly">true</param>-->
+            <!--</interceptor-ref>-->
+        <!--</action>-->
+
+        <!--<action name="updateUser" method="update"-->
+                <!--class="com.fdar.apress.s2.actions.user.UserAction" >-->
+            <!--<result name="success" type="redirectAction">index</result>-->
+            <!--<result name="dupPK">/WEB-INF/jsp/user/findUser-success.jsp</result>-->
+            <!--<result name="input">/WEB-INF/jsp/user/findUser-success.jsp</result>-->
+            <!--<exception-mapping exception="org.hibernate.exception.ConstraintViolationException" result="dupPK" />-->
+            <!--<interceptor-ref name="paramsPrepareParamsStack">-->
+                <!--<param name="validation.validateAnnotatedMethodOnly">true</param>-->
+            <!--</interceptor-ref>-->
+        <!--</action>-->
+
+        <!--<action name="getPortrait" class="com.fdar.apress.s2.actions.user.UserAction" >-->
+            <!--<result name="success" type="stream">-->
+                <!--<param name="contentType">image</param>-->
+                <!--<param name="inputName">inputStream</param>-->
+            <!--</result>-->
+            <!--<interceptor-ref name="paramsPrepareParamsStack">-->
+                <!--<param name="validation.validateAnnotatedMethodOnly">true</param>-->
+            <!--</interceptor-ref>-->
+        <!--</action>-->
+
+    <!--</package>-->
+
+    <!-- Single action, single domain wildcard configuration -->
+    <!--<package name="user" extends="struts-default" namespace="/user" >-->
+
+        <!--<default-interceptor-ref name="paramsPrepareParamsStack" />-->
+
+        <!--<action name="index" class="com.opensymphony.xwork2.ActionSupport" >-->
+            <!--<result name="success">/WEB-INF/jsp/index.jsp</result>-->
+        <!--</action>-->
+
+        <!--<action name="*User" method="{1}"-->
+            <!--class="com.fdar.apress.s2.actions.user.UserAction" >-->
+            <!--<result name="input">/WEB-INF/jsp/user/{1}User-success.jsp</result>-->
+            <!--<result name="success" type="redirectAction">index</result>-->
+        <!--</action>-->
+
+    <!--</package>-->
+
+
+    <!-- Single action, multiple domain wildcard configuration -->
+    <!--<package name="domainCRUD" extends="struts-default" namespace="/" >-->
+
+        <!--<default-interceptor-ref name="paramsPrepareParamsStack" />-->
+
+        <!--<action name="index" class="com.opensymphony.xwork2.ActionSupport" >-->
+            <!--<result name="success">/WEB-INF/jsp/index.jsp</result>-->
+        <!--</action>-->
+
+        <!--<action name="*_*" method="{2}"-->
+            <!--class="com.fdar.apress.s2.actions.{1}Action" >-->
+            <!--<result name="input">/WEB-INF/jsp/user/{2}{1}-success.jsp</result>-->
+            <!--<result name="success" type="redirectAction">index</result>-->
+        <!--</action>-->
+
+    <!--</package>-->
+
+
+
+    <include file="config-browser.xml"/>
+
+</struts>
